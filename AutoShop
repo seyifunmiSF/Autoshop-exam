@@ -1,0 +1,164 @@
+package main
+
+import (
+	"fmt"
+)
+
+// Car declare a car struct
+type Car struct {
+	name        string
+	description string
+	model       string
+	color       string
+	fuelType    string
+	price       float64
+	quantity    int
+	year        int
+}
+
+// Name returns the name of a Car.
+func (c *Car) Name() string {
+	return c.name
+}
+
+// Description returns the description of a Car.
+func (c *Car) Description() string {
+	return c.description
+}
+
+// Model returns the model of a Car.
+func (c *Car) Model() string {
+	return c.model
+}
+
+// Color returns the color of a Car.
+func (c *Car) Color() string {
+	return c.color
+}
+
+// FuelType returns the fuel type of a Car.
+func (c *Car) FuelType() string {
+	return c.fuelType
+}
+
+// Price returns the price of a Car
+func (c *Car) Price() float64 {
+	return c.price
+}
+
+// Quantity returns the quantity of cars available
+func (c *Car) Quantity() int {
+	return c.quantity
+}
+
+// Year returns the year the Car was produced.
+func (c *Car) Year() int {
+	return c.year
+}
+
+// declare a product struct.
+type product struct {
+	car                []Car
+	Name               string
+	quantityOfProduct  int
+	Price              int
+	Model              string
+	productDescription string
+}
+
+// declare a method for the product struct
+func (p product) showProduct() {
+	fmt.Println(p)
+}
+
+// declaring a method for the product struct to display the status of a product to ascertain stock.
+func (p product) showStatusOfProduct() {
+	if p.quantityOfProduct > 0 {
+		fmt.Println("In stock")
+	} else {
+		fmt.Println("Out of Stock")
+	}
+}
+
+// declaring a store struct and it's attributes
+type store struct {
+	products          []product
+	productsSold      []product
+	allProduct        int
+	totalProductsSold int
+	totalSales        int
+	addItem           string
+}
+
+func (s store) allProducts() {
+	fmt.Println("List of all Products: ", s.products)
+}
+
+func (s store) display() {
+	fmt.Println("Number of Products: ", s.allProduct)
+	fmt.Println("List of all Products: ", s.products)
+	fmt.Println("Sold Products + (total amount): ", s.totalProductsSold)
+}
+
+// Add Product. Declare a method for the store struct to add a product to the store
+func (s store) addProduct(p product) {
+	s.products = append(s.products, p)
+	s.allProduct++
+}
+
+// Sell Product. Declare a method for the store struct to sell a product from the store
+func (s store) sellProduct(p product) {
+	s.productsSold = append(s.productsSold, p)
+	s.totalProductsSold++
+	s.totalSales += p.Price
+}
+
+// Products Sold. Declare a method for the store to show all products sold at the store.
+func (s store) showSoldProducts() {
+	for _, p := range s.productsSold {
+		fmt.Println(p)
+	}
+}
+
+// Total Sales. Declare a method for the store struct to show the total sales made by the store.
+func (s store) totalSalesMade() {
+	fmt.Println(s.totalSalesMade)
+}
+
+func main() {
+	carr := Car{name: "Honda", quantity: 3, price: 500000, model: "accord"}
+	car2 := Car{name: "Toyota", quantity: 4, price: 100000, model: "camry"}
+	car3 := Car{name: "Mercedes Benz", quantity: 3, price: 1000000, model: "c-class"}
+
+
+	prod := product{
+		car:                []Car{carr, car2, car3},
+		// prod1: 	   			car {"carr", "car2", "car3"}
+		
+	}
+	//Create a store
+	store := store{
+		products:          []product{prod},
+		productsSold:      []product{prod},
+		allProduct:        10,
+		totalProductsSold: 2,
+		totalSales:        8,
+		addItem:           "Add item",
+	}
+
+	
+
+	store.addProduct(prod)
+	//Create a product
+	
+	//Add the product to the store
+
+	//Sell the product
+	store.sellProduct(prod)
+
+	//List all products in the store
+	store.allProducts()
+
+	//List all sold products
+	store.showSoldProducts()
+}
